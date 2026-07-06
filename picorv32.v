@@ -2258,6 +2258,25 @@ module picorv32_pcpi_mul #(
 				next_rdt = next_rd ^ next_rdx ^ this_rs2;
 				next_rdx = ((next_rd & next_rdx) | (next_rd & this_rs2) | (next_rdx & this_rs2)) << 1;
 				next_rd = next_rdt;
+			end else if (CARRY_CHAIN == 4) begin
+				next_rdt = 0;
+				{next_rdt[ 3], next_rd[ 0 +: 4]} = next_rd[ 0 +: 4] + next_rdx[ 0 +: 4] + this_rs2[ 0 +: 4];
+				{next_rdt[ 7], next_rd[ 4 +: 4]} = next_rd[ 4 +: 4] + next_rdx[ 4 +: 4] + this_rs2[ 4 +: 4];
+				{next_rdt[11], next_rd[ 8 +: 4]} = next_rd[ 8 +: 4] + next_rdx[ 8 +: 4] + this_rs2[ 8 +: 4];
+				{next_rdt[15], next_rd[12 +: 4]} = next_rd[12 +: 4] + next_rdx[12 +: 4] + this_rs2[12 +: 4];
+				{next_rdt[19], next_rd[16 +: 4]} = next_rd[16 +: 4] + next_rdx[16 +: 4] + this_rs2[16 +: 4];
+				{next_rdt[23], next_rd[20 +: 4]} = next_rd[20 +: 4] + next_rdx[20 +: 4] + this_rs2[20 +: 4];
+				{next_rdt[27], next_rd[24 +: 4]} = next_rd[24 +: 4] + next_rdx[24 +: 4] + this_rs2[24 +: 4];
+				{next_rdt[31], next_rd[28 +: 4]} = next_rd[28 +: 4] + next_rdx[28 +: 4] + this_rs2[28 +: 4];
+				{next_rdt[35], next_rd[32 +: 4]} = next_rd[32 +: 4] + next_rdx[32 +: 4] + this_rs2[32 +: 4];
+				{next_rdt[39], next_rd[36 +: 4]} = next_rd[36 +: 4] + next_rdx[36 +: 4] + this_rs2[36 +: 4];
+				{next_rdt[43], next_rd[40 +: 4]} = next_rd[40 +: 4] + next_rdx[40 +: 4] + this_rs2[40 +: 4];
+				{next_rdt[47], next_rd[44 +: 4]} = next_rd[44 +: 4] + next_rdx[44 +: 4] + this_rs2[44 +: 4];
+				{next_rdt[51], next_rd[48 +: 4]} = next_rd[48 +: 4] + next_rdx[48 +: 4] + this_rs2[48 +: 4];
+				{next_rdt[55], next_rd[52 +: 4]} = next_rd[52 +: 4] + next_rdx[52 +: 4] + this_rs2[52 +: 4];
+				{next_rdt[59], next_rd[56 +: 4]} = next_rd[56 +: 4] + next_rdx[56 +: 4] + this_rs2[56 +: 4];
+				{next_rdt[63], next_rd[60 +: 4]} = next_rd[60 +: 4] + next_rdx[60 +: 4] + this_rs2[60 +: 4];
+				next_rdx = next_rdt << 1;
 			end else begin
 				next_rdt = 0;
 				for (j = 0; j < 64; j = j + CARRY_CHAIN)
